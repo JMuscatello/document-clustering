@@ -4,9 +4,21 @@ import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
+from emoji
+
+URL_MATCH = r'(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})'
+
+
+def replace_emojis(text):
+    """
+    Replaces emojis with text
+    """
+    return emoji.demojize(text)
+
+
 def regex_preprocessor(text):
     """
-    Removes numbers etc.
+    Replaces URLs, numbers, etc.
 
     Args:
         text (string): Raw text
@@ -15,6 +27,7 @@ def regex_preprocessor(text):
         text with substitutions applied
     """
 
+    text = re.sub(URL_MATCH, 'URL', text)
     text = re.sub(r'\([0-9]+\)', 'BRACKETNUM', text)
     text = re.sub(r'[0-9]+\.', 'STOPNUM', text)
     text = re.sub(r'[0-9]', 'd', text)
@@ -63,5 +76,5 @@ class StemmerTokenizer():
             if token.lower() not in stop_words and
             token != ' ' and token
         ]
-    
+
         return filtered_text
