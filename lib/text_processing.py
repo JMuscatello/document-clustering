@@ -4,7 +4,7 @@ import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-from emoji
+import emoji
 
 URL_MATCH = r'(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})'
 
@@ -15,8 +15,7 @@ def replace_emojis(text):
     """
     return emoji.demojize(text)
 
-
-def regex_preprocessor(text):
+def regex_substitutions(text):
     """
     Replaces URLs, numbers, etc.
 
@@ -31,12 +30,9 @@ def regex_preprocessor(text):
     text = re.sub(r'\([0-9]+\)', 'BRACKETNUM', text)
     text = re.sub(r'[0-9]+\.', 'STOPNUM', text)
     text = re.sub(r'[0-9]', 'd', text)
-    text = re.sub(r'\.(?=\w)', '. ', text)
-    text = re.sub(r'\:(?=\w)', ': ', text)
     text = re.sub(r'\s+', ' ', text)
 
     return text
-
 
 class StemmerTokenizer():
     """
@@ -78,3 +74,18 @@ class StemmerTokenizer():
         ]
 
         return filtered_text
+
+def preprocess_text(texts):
+    """
+    Apply preprocessing to list of strings
+
+    Args:
+        texts (list): List of strings
+
+    Returns:
+        List of processed strings
+    """
+
+    texts = [regex_substitutions(replace_emojis(text)) for text in texts]
+
+    return texts
