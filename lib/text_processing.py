@@ -28,8 +28,8 @@ def regex_substitutions(text):
 
     text = re.sub(URL_MATCH, 'URL', text)
     text = re.sub(r'\([0-9]+\)', 'BRACKETNUM', text)
-    text = re.sub(r'[0-9]+\.', 'STOPNUM', text)
-    text = re.sub(r'[0-9]', 'd', text)
+    text = re.sub(r'[0-9]+\.', 'NUM.', text)
+    text = re.sub(r'[0-9]', 'D', text)
     text = re.sub(r'\s+', ' ', text)
 
     return text
