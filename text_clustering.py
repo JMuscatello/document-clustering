@@ -25,7 +25,7 @@ def main(file, column, cluster_type, n_clusters):
         lda_clusterer.fit(texts)
         labels = lda_clusterer.predict(texts)
 
-    elif cluster_type == 'tfidf':
+    elif cluster_type == 'kmeans':
         kmeans_clusterer = TfidfSvdKmeans(n_clusters)
         kmeans_clusterer.fit(texts)
         labels = kmeans_clusterer.predict(texts)
