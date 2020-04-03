@@ -10,7 +10,7 @@ from lib.clustering import LdaClusterer, TfidfSvdKmeans
               help='Path to .csv file from which to load data')
 @click.option('--column', '-c', default='message_body',
               help='Name of column that contains message body')
-@click.option('--cluster_type', '-c', default='lda',
+@click.option('--cluster_type', '-t', default='lda',
               help='Choose lda or kmeans clustering')
 @click.option('--n_clusters', '-n', default=5,
               help='Number of clusters')
